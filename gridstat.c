@@ -40,8 +40,8 @@ int main(int numarg, char** args) {
            float* coord = getLatLonCoordinates(i, j, reso);
            float maxx = coord[0] + radius;
            float maxy = coord[1] + radius;
-           float minx = coord[0] + radius;
-           float miny = coord[1];
+           float minx = coord[0] - radius;
+           float miny = coord[1] - radius;
            if (maxx >= 180.0f) {
                 maxx = 179.99f;
            } 
