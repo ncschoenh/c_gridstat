@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "ggg_reader.h"
-#define deg2km 1.8520 * 60.0;
 
 
 int main(int numarg, char** args) {
@@ -31,7 +30,10 @@ int main(int numarg, char** args) {
         fprintf(stderr, "\nResolution not currently supported...\n");
         exit(0);
    }
+   
+   float deg2km = 1.8520 * 60.0;
    float radius = 100.0f / deg2km;
+   printf("%s, %d\n", gggFilePath, resolution);
    float *data = read_GGG_File(gggFilePath, resolution);
    int *gridResos = getGridResolution(resolution);
    int j;
@@ -55,6 +57,8 @@ int main(int numarg, char** args) {
            if (miny <= -90.0) {
                 miny = -89.99;
            }
+           //printf("Coord: %d", coord[0]);
+           //printf("%f\n", minx);
            int* max = getGridCoordinate(maxy, maxx, resolution);
            int* min = getGridCoordinate(miny, minx, resolution);
            int k;
@@ -67,6 +71,9 @@ int main(int numarg, char** args) {
                     count++;
                 }
            }
+           //printf("Deg2km: %f\n", deg2km);
+           //printf("Radius: %f\n", radius);
+           //printf("Maxx: %f, Minx: %f, Maxy: %f, Miny: %f\n", maxx, minx, maxy, miny);
            printf("Mean: %f, Row: %d, Col:%d\n", total/count, i, j);
            free(max);
            free(min);
