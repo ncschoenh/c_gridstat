@@ -32,12 +32,12 @@ int main(int numarg, char** args) {
         exit(0);
    }
    float radius = 100.0f / deg2km;
-   float *data = read_GGG_File(gggFilePath, reso);
-   int *gridResos = getGridResolutions(reso);
+   float *data = read_GGG_File(gggFilePath, resolution);
+   int *gridResos = getGridResolution(resolution);
    int j;
    for (i = 0; i < gridResos[1]; i++) {
         for (j = 0; j < gridResos[0]; j++) {
-           float* coord = getLatLonCoordinates(i, j, reso);
+           float* coord = getLatLonCoordinate(i, j, resolution);
            float maxx = coord[0] + radius;
            float maxy = coord[1] + radius;
            float minx = coord[0] - radius;
@@ -53,18 +53,18 @@ int main(int numarg, char** args) {
                 minx = -179.99f;
            }
            if (miny <= -90.0) {
-                miny = -89.99
+                miny = -89.99;
            }
-           int* max = getGridCoordinate(maxy, maxx, reso);
-           int* min = getGridCoordinate(miny, minx, reso);
+           int* max = getGridCoordinate(maxy, maxx, resolution);
+           int* min = getGridCoordinate(miny, minx, resolution);
            int k;
            int l;
            int count = 0;
            float total = 0;
            for (k = min[1]; k < max[1]; k++) {
                 for (l = min[0]; l < max[0]; l++) {
-                    total += readFloat(data, k, l, reso);
-                    count++
+                    total += readFloat(data, k, l, resolution);
+                    count++;
                 }
            }
            printf("Mean: %f, Row: %d, Col:%d\n", total/count, i, j);
