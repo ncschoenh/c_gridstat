@@ -42,6 +42,7 @@ int main(int numarg, char** args) {
            float maxy = coord[1] + radius;
            float minx = coord[0] - radius;
            float miny = coord[1] - radius;
+           // Do BBOX wrapping here
            if (maxx >= 180.0f) {
                 maxx = 179.99f;
            } 
